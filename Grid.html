@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COUNT ISLAND BFS</title>
+</head>
+<body>
+<div><canvas id="mainboard" width="600" height="400"></canvas></div>
+
+</body>
+<script type="text/javascript">
+
+var Mainboard = function(){
+    this.canvas = document.getElementById("mainboard");
+    this.ctx = this.canvas.getContext("2d");
+
+    this.r = 100;
+
+    this.w = this.canvas.width;
+    this.h = this.canvas.height;
+
+    this.x = this.w/this.r;
+    this.y = this.h/this.r;
+
+
+    this.fsize = 20;
+
+    this.ctx.font = this.fsize + "px Arial";
+
+    this.alignment_x = this.r/2 - this.fsize/4;
+    this.alignment_y = this.r/2 + this.fsize/4;
+
+    this.drawLine = function(x1, y1, x2, y2){
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+    }
+
+    this.fillTextRandom = function(){
+        // Draw number 0,1
+        for(var x = 0; x < this.w; x += this.r){
+            for(var y = 0; y < this.h; y += this.r){
+                var val = (Math.random() >= 0.5 ? 1:0);
+                this.ctx.fillText(val, 
+                    x + this.alignment_x, 
+                    y + this.alignment_y);
+            }
+        }
+    }
+
+    this.drawGrid = function(){
+        this.ctx.lineWidth = 0.5;
+        // Draw horizontal lines
+        for(var i = 0; i <= this.h; i += this.r){
+            this.drawLine(0, i, this.w, i);
+        }
+        // Draw vertical lines
+        for(var i = 0; i <= this.w; i += this.r){
+            this.drawLine(i, 0, i, this.h);
+        }
+        this.fillTextRandom();
+    }
+}
+
+var mb = new Mainboard();
+mb.drawGrid();
+
+// mb.ctx.fillText("Hello World", 10, 50);
+</script>
+</html>
